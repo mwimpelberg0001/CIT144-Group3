@@ -23,5 +23,20 @@ class loginGUI:
 
     #function returns information given
     def submitButton(self):
-        return (userID, userPass)
+        #pull user data function
+        #call the password function
+        #if password matches, pull balance
+        #pass balance
+        return (userID, balance)
 
+    #function checks password
+    def checkPassword(self):
+        
+
+    #function pulls information from user file
+    #information should be ID, password, balance
+    def pullUserFile(self):
+        
+
+    
+loginGUI()

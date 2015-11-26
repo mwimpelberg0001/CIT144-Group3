@@ -31,12 +31,12 @@ class loginGUI:
 
     #function checks password
     def checkPassword(self):
-        
+        return
 
     #function pulls information from user file
     #information should be ID, password, balance
     def pullUserFile(self):
-        
+        return
 
     
 loginGUI()

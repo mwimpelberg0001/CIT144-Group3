@@ -1,5 +1,5 @@
 
-from tkinter import *
+from Tkinter import *
 
 class loginGUI:
     def __init__(self):
@@ -25,11 +25,11 @@ class loginGUI:
         window.mainloop() #needed here now, since we will import mainGUI functions after a succesful login
 
     #function checks password
-    def checkPassword():
-    	if self.userPass == self.validPass:
-    		check = True
-    	else:
-    		check = False
+    def checkPassword(self): # Disabled, i can't get the string equality figured out..
+    	#if repr(self.userPass) == repr(self.validPass):
+    	check = True
+    	#else:
+    		#check = False
     	return check
 
     #function pulls information from user file
@@ -47,7 +47,8 @@ class loginGUI:
         self.pullUserFile()
         if self.checkPassword():
             import mainGUI 
-            mainGUI() #if password checks, open mainGUI
+           # mainGUI.mainGUI() #if password checks, open mainGUI
+           # WOW! you don't even need this?^^ import does it!?
         else:
             print("Invalid Password")
         #if password matches, pull balance

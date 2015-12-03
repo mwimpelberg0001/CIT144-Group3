@@ -25,10 +25,10 @@ class loginGUI:
 
     #function checks password
     def checkPassword(self):
-    	#if self.userPass == userPass:
-    	check = True
-    	#else:
-    		#check = False
+    	if self.userPass == userPass:
+    		check = True
+    	else:
+    		check = False
     	return check
 
     #function pulls information from user file
@@ -43,7 +43,7 @@ class loginGUI:
 
     #function returns information given
     def submitButton(self):
-        #pullUserFile(self)
+        pullUserFile(self)
         if checkPassword():
         	import mainGUI 
         	mainGUI() #if password checks, open mainGUI

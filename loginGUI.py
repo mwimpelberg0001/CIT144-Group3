@@ -1,5 +1,4 @@
 from Tkinter import *
-from os import path 
 
 class loginGUI:
     def __init__(self):
@@ -24,23 +23,32 @@ class loginGUI:
         
         window.mainloop() #needed here now, since we will import mainGUI functions after a succesful login
 
-    #function returns information given
-    def submitButton(self):
-        #pull user data function
-        #call the password function
-        #if password matches, pull balance
-        #pass balance
-        return (userID, balance)
-
     #function checks password
     def checkPassword(self):
-    	pullUserFile(self) #it will need this to compare entered password to stored one
-        return
+    	#if self.userPass == userPass:
+    	check = True
+    	#else:
+    		#check = False
+    	return check
 
     #function pulls information from user file
     #information should be ID, password, balance
     def pullUserFile(self):
+    	userFile = open('users/user', 'r')
+    	userID = str(userFile.readline())
+    	userPass = str(userFile.readline())
+    	userBalance = float(userFile.readline())
+    	userFile.close()
         return
 
+    #function returns information given
+    def submitButton(self):
+        #pullUserFile(self)
+        if checkPassword():
+        	import mainGUI 
+        	mainGUI() #if password checks, open mainGUI
+        #if password matches, pull balance
+        #pass balance
+        return 
     
 loginGUI()

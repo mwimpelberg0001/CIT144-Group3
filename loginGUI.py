@@ -34,7 +34,7 @@ class loginGUI:
     #function pulls information from user file
     #information should be ID, password, balance
     def pullUserFile(self):
-    	userFile = open('users/user', 'r')
+    	userFile = open('userFile', 'r')
     	userID = str(userFile.readline())
     	userPass = str(userFile.readline())
     	userBalance = float(userFile.readline())

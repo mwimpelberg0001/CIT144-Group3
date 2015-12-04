@@ -1,4 +1,9 @@
-from Tkinter import *
+try:
+    # for Python2
+    from Tkinter import *
+except ImportError:
+    # for Python3
+    from tkinter import *
 
 class mainGUI():
     def __init__(self):
@@ -17,24 +22,47 @@ class mainGUI():
         btLogout = Button(window, text = "Log Out", command = self.logout).place(x = 200, y = 100)
 
 
+    def pullUserFile(self):
+    	userFile = open("users.txt", "r")
+    	self.validID = str(userFile.readline())
+    	self.validPass = str(userFile.readline())
+    	self.userBalance = float(userFile.readline())
+    	userFile.close()
+    	return
+    
     def deposit(self):
-        #call deposit window menu
+        import depositGUI
         return
 
     def withdraw(self):
-        #to call withdraw window menu
+        import withdrawGUI
         return
 
     def quickWithdraw(self):
         #automatically withdraws 40 from balance
+        userFile = open("users.txt", "r+")
+    	user = str(userFile.readline())
+    	password = str(userFile.readline())
+    	balance = float(userFile.readline())
+    	if (balance - 40) >= 0.0:
+    		balance -= 40
+    	userFile.seek(0)
+    	userFile.write(user)
+    	userFile.write(password)
+    	userFile.write(str(balance))
+    	userFile.truncate()
+    	userFile.close()
         return
 
     def checkBalance(self):
-        #returns balance amount
-        return
+        userFile = open("users.txt", "r")
+    	user = str(userFile.readline())
+    	password = str(userFile.readline())
+    	balance = float(userFile.readline())
+        return balance
 
     def transfer(self):
-        #pulls transfer window
+        import transferGUI
         return
 
     def logout(self):

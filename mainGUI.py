@@ -26,7 +26,8 @@ class mainGUI():
     	userFile = open("users.txt", "r")
     	self.validID = str(userFile.readline())
     	self.validPass = str(userFile.readline())
-    	self.userBalance = float(userFile.readline())
+    	self.userChecking = float(userFile.readline())
+    	self.userSavings = float(userFile.readline())
     	userFile.close()
     	return
     
@@ -43,13 +44,15 @@ class mainGUI():
         userFile = open("users.txt", "r+")
     	user = str(userFile.readline())
     	password = str(userFile.readline())
-    	balance = float(userFile.readline())
-    	if (balance - 40) >= 0.0:
-    		balance -= 40
+    	checking = float(userFile.readline())
+    	savings = float(userFile.readline())
+    	if (checking - 40) >= 0.0:
+    		checking -= 40
     	userFile.seek(0)
     	userFile.write(user)
     	userFile.write(password)
-    	userFile.write(str(balance))
+    	userFile.write(str(checking) + '\n')
+    	userFile.write(str(savings) + '\n')
     	userFile.truncate()
     	userFile.close()
         return
@@ -58,8 +61,9 @@ class mainGUI():
         userFile = open("users.txt", "r")
     	user = str(userFile.readline())
     	password = str(userFile.readline())
-    	balance = float(userFile.readline())
-        return balance
+    	checking = float(userFile.readline())
+    	savings = float(userFile.readline())
+        return checking, savings
 
     def transfer(self):
         import transferGUI

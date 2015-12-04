@@ -42,7 +42,8 @@ class loginGUI:
     	userFile = open("users.txt", "r")
     	self.validID = str(userFile.readline())
     	self.validPass = str(userFile.readline())
-    	self.userBalance = float(userFile.readline())
+    	self.userChecking = float(userFile.readline())
+    	self.userSavings = float(userFile.readline())
     	userFile.close()
     	return
     

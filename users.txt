@@ -1,4 +1,4 @@
-user
-password
-760.0
-75.0
+user,password,760.0,75.0
+mwimpelberg,test1,1000.0,100.0
+jwood,test2,1000.0,100.0
+dkrebs,test3,1000.0,100.0

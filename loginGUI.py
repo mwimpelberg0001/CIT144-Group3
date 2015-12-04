@@ -28,35 +28,23 @@ class loginGUI:
         
         window.mainloop() #needed here now, since we will import mainGUI functions after a succesful login
 
-    #function checks password
-    def checkPassword(self): # Disabled, i can't get the string equality figured out..
-    	#if repr(self.userPass) == repr(self.validPass):
-    	check = True
-    	#else:
-    		#check = False
-    	return check
 
-    #function pulls information from user file
-    #information should be ID, password, balance
-    def pullUserFile(self):
-    	userFile = open("users.txt", "r")
-    	self.validID = str(userFile.readline())
-    	self.validPass = str(userFile.readline())
-    	self.userChecking = float(userFile.readline())
-    	self.userSavings = float(userFile.readline())
-    	userFile.close()
-    	return
-    
     #function returns information given
     def submitButton(self):
-        self.pullUserFile()
-        if self.checkPassword():
-            import mainGUI 
-           # mainGUI.mainGUI() #if password checks, open mainGUI
-           # WOW! you don't even need this?^^ import does it!?
-        else:
-            print("Invalid Password")
-        #if password matches, pull balance
-        #pass balance
+        users = [] #used to extract lines from user file
+        success = [] #used to pass correct line
+        with open("users.txt", "r") as inputfile: #opens the database
+            for line in inputfile:  #looking through the database by line
+                users.append((line.strip().split(','))) #pull database into a master list
+        for ident in range(0, len(users)): #looking through the list
+            if self.userID.get() == users[ident][0]: #find the user that matches given
+                if self.userPass.get() == users[ident][1]: #check the password of user is good
+                    for item in users[ident]: #extract that list into a seperate list
+                        success.append(item)
+                        inputfile.close()
+                    import mainGUI #fire up the main GUI
+                else:
+                    print ("Wrong password") #Password didnt match user given
+            
 
 loginGUI()

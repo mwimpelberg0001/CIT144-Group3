@@ -21,6 +21,7 @@ class mainGUI():
         btTransfer = Button(window, text = "Transfer Funds", command = self.transfer).place(x = 200, y = 60)
         btLogout = Button(window, text = "Log Out", command = self.logout).place(x = 200, y = 100)
 
+        window.mainloop()
 
     def pullUserFile(self):
     	userFile = open("users.txt", "r")
@@ -42,35 +43,36 @@ class mainGUI():
     def quickWithdraw(self):
         #automatically withdraws 40 from balance
         userFile = open("users.txt", "r+")
-    	user = str(userFile.readline())
-    	password = str(userFile.readline())
-    	checking = float(userFile.readline())
-    	savings = float(userFile.readline())
-    	if (checking - 40) >= 0.0:
-    		checking -= 40
-    	userFile.seek(0)
-    	userFile.write(user)
-    	userFile.write(password)
-    	userFile.write(str(checking) + '\n')
-    	userFile.write(str(savings) + '\n')
-    	userFile.truncate()
-    	userFile.close()
+        user = str(userFile.readline())
+        password = str(userFile.readline())
+        checking = float(userFile.readline())
+        savings = float(userFile.readline())
+        if (checking - 40) >= 0.0:
+            checking -= 40
+        userFile.seek(0)
+        userFile.write(user)
+        userFile.write(password)
+        userFile.write(str(checking) + '\n')
+        userFile.write(str(savings) + '\n')
+        userFile.truncate()
+        userFile.close()
         return
 
     def checkBalance(self):
         userFile = open("users.txt", "r")
-    	user = str(userFile.readline())
-    	password = str(userFile.readline())
-    	checking = float(userFile.readline())
-    	savings = float(userFile.readline())
+        user = str(userFile.readline())
+        password = str(userFile.readline())
+        checking = float(userFile.readline())
+        savings = float(userFile.readline())
         return checking, savings
 
     def transfer(self):
         import transferGUI
         return
 
-    def logout(self):
+    def logout():
         #closes program
+        window.destroy()
         return
 
 #only purpose is to call mainGUI for viewing

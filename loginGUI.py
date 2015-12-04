@@ -4,6 +4,8 @@ try:
 except ImportError:
     # for Python3
     from tkinter import *
+    
+from mainGUI import *
 
 class loginGUI:
     def __init__(self):
@@ -41,8 +43,10 @@ class loginGUI:
                 if self.userPass.get() == users[ident][1]: #check the password of user is good
                     for item in users[ident]: #extract that list into a seperate list
                         success.append(item)
-                        inputfile.close()
-                    import mainGUI #fire up the main GUI
+
+                    name = success[0]
+                    inputfile.close()
+                    mainGUI(name)#fire up the main GUI
                 else:
                     print ("Wrong password") #Password didnt match user given
             

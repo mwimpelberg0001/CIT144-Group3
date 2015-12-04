@@ -5,8 +5,9 @@ except ImportError:
     # for Python3
     from tkinter import *
 
-class mainGUI():
-    def __init__(self):
+class mainGUI:
+    def __init__(self, name):
+        self.name = name
         window = Tk() #create window
         window.title("Python Classroom ATM") #set window title
         #sets background size
@@ -24,12 +25,17 @@ class mainGUI():
         window.mainloop()
 
     def pullUserFile(self):
-    	userFile = open("users.txt", "r")
-    	self.validID = str(userFile.readline())
-    	self.validPass = str(userFile.readline())
-    	self.userChecking = float(userFile.readline())
-    	self.userSavings = float(userFile.readline())
-    	userFile.close()
+        #self.user = []
+        #users = []
+        #with open("users.txt", "r") as inputfile: #opens the database
+        #    for line in inputfile:  #looking through the database by line
+        #        users.append((line.strip().split(','))) #pull database into a master list
+        #for ident in range(0, len(users)): #looking through the list
+        #    if self.name == users[ident][0]: #find the user that matches given
+        #        for item in users[ident]: #extract that list into a seperate list
+        #            self.user.append(item)
+                
+                    
     	return
     
     def deposit(self):
@@ -42,19 +48,10 @@ class mainGUI():
 
     def quickWithdraw(self):
         #automatically withdraws 40 from balance
-        userFile = open("users.txt", "r+")
-        user = str(userFile.readline())
-        password = str(userFile.readline())
-        checking = float(userFile.readline())
-        savings = float(userFile.readline())
-        if (checking - 40) >= 0.0:
-            checking -= 40
-        userFile.seek(0)
-        userFile.write(user)
-        userFile.write(password)
-        userFile.write(str(checking) + '\n')
-        userFile.write(str(savings) + '\n')
-        userFile.truncate()
+        user = pullUserFile()
+        user[2] = user[2] - 40
+        
+        inputfile.write
         userFile.close()
         return
 
@@ -75,8 +72,6 @@ class mainGUI():
         window.destroy()
         return
 
-#only purpose is to call mainGUI for viewing
-mainGUI()
 
     
 

@@ -25,21 +25,22 @@ class mainGUI:
         #reads in the user data of the logged in user
         
         self.activeUser = []
-        #self.activeUser = activeUser
+        self.activeUser = activeUser
         
         userFile = open("users.txt", "r")
-        if self.name == 'user':
+        if self.name == 'user' :
         	userFile.seek(0)
         	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        	elif self.name == 'mwimpelberg':
+        elif self.name == 'mwimpelberg' :
         	userFile.seek(32)
         	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        	elif self.name == 'jwood':
+        elif self.name == 'jwood' :
         	userFile.seek(64)
         	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        	elif self.name == 'dkrebs':
+        elif self.name == 'dkrebs' :
         	userFile.seek(96)
         	self.activeUser.append(str(userFile.readline().strip()).split(','))
+        self.activeUser.pop()
         userFile.close()
 
         window.mainloop()
@@ -50,43 +51,43 @@ class mainGUI:
 # the user file should be made to call thesefunctions using "mainGUI.readUserFile()"
 # or "mainGUI.writeUserFile()" (for all programs, deposit, withdraw, transfer etc..)
 #
-    def readUserFile():
+    def readUserFile(self):
     	userFile = open("users.txt", "r")
         if self.name == 'user':
         	userFile.seek(0)
-        	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        	elif self.name == 'mwimpelberg':
+        	self.activeUser.insert(0, str(userFile.readline().split(',')))
+        elif self.name == 'mwimpelberg':
         	userFile.seek(32)
-        	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        	elif self.name == 'jwood':
+        	self.activeUser.insert(0, str(userFile.readline().split(',')))
+        elif self.name == 'jwood':
         	userFile.seek(64)
-        	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        	elif self.name == 'dkrebs':
+        	self.activeUser.insert(0, str(userFile.readline().split(',')))
+        elif self.name == 'dkrebs':
         	userFile.seek(96)
-        	self.activeUser.append(str(userFile.readline().strip()).split(','))
+        	self.activeUser.insert(0, str(userFile.readline().split(',')))
         userFile.close()
     	
     	return
     
-    def writeUserFile():
+    def writeUserFile(self):
     	userFile = open("users.txt", "r+")
         if self.name == 'user':
         	userFile.seek(0)
-        	userFile.write(activeUser[0] + ',' + activeUser[1] + ',' + activeUser[2] + ',' + activeUser[3] )
-        	elif self.name == 'mwimpelberg':
+        	userFile.write(self.activeUser[0] + ',' + self.activeUser[1] + ',' + self.activeUser[2] + ',' + self.activeUser[3] )
+        elif self.name == 'mwimpelberg':
         	userFile.seek(32)
-        	userFile.write(activeUser[0] + ',' + activeUser[1] + ',' + activeUser[2] + ',' + activeUser[3] )
-        	elif self.name == 'jwood':
+        	userFile.write(self.activeUser[0] + ',' + self.activeUser[1] + ',' + self.activeUser[2] + ',' + self.activeUser[3] )
+        elif self.name == 'jwood':
         	userFile.seek(64)
-        	userFile.write(activeUser[0] + ',' + activeUser[1] + ',' + activeUser[2] + ',' + activeUser[3] )
-        	elif self.name == 'dkrebs':
+        	userFile.write(self.activeUser[0] + ',' + self.activeUser[1] + ',' + self.activeUser[2] + ',' + self.activeUser[3] )
+        elif self.name == 'dkrebs':
         	userFile.seek(96)
-        	userFile.write(activeUser[0] + ',' + activeUser[1] + ',' + activeUser[2] + ',' + activeUser[3] )
+        	userFile.write(self.activeUser[0] + ',' + self.activeUser[1] + ',' + self.activeUser[2] + ',' + self.activeUser[3] )
         userFile.close()
     	
     	return
 #
-#
+# end of read/write methods, see top of section for details.
 #######################################################################
 
     def deposit(self):
@@ -97,14 +98,21 @@ class mainGUI:
         import withdrawGUI
         return
 
+    def checkBalance(self):
+        self.readUserFile()
+        savings = self.activeUser[3]
+        checking = self.activeUser[-1] # -1 gives last element
+        print str( "checking: $" + savings + "\tsavings: $" + checking )
+        return checking, savings
+        
     def quickWithdraw(self):
         #automatically withdraws 40 from balance
+        self.readUserFile()
+        self.activeUser[-2] = str(float(self.activeUser[-2]) - 40)
+        self.writeUserFile()
+        self.checkBalance()
+        
         return
-
-    def checkBalance(self):
-        checking = self.activeUser[2]
-        savings = self.activeUser[3]
-        return checking, savings
 
     def transfer(self):
         import transferGUI

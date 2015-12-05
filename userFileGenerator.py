@@ -23,7 +23,7 @@ userFile.write('user,password,760.0,75.0')
 userFile.seek(32)
 userFile.write('\nmwimpelberg,test1,1000.0,100.0')
 userFile.seek(64)
-userFile.write('\njwood,test2,1000.0,100.0')
+userFile.write('\njwood,password,1000.0,100.0')
 userFile.seek(96)
 userFile.write('\ndkrebs,test3,1000.0,100.0')
 userFile.close()
@@ -32,8 +32,7 @@ for x in range(0,10):
 	print "loading"
 	for y in range(0,10):
 		os.system('cls' if os.name == 'nt' else 'clear')
-
-users = [] #used to extract lines from user file
+users = [] # blah blah i need this
 userFile = open('users.txt', 'r')
 userFile.seek(0)
 users.append((str(userFile.readline).strip().split(',')))
@@ -48,4 +47,6 @@ userFile.close()
 for x in range(0, len(users)):
 	print str(users[x])
 print " default users.txt Generated"
+
+
 

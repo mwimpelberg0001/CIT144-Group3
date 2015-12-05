@@ -45,8 +45,10 @@ class loginGUI:
                         success.append(item)
 
                     name = success[0]
+                    activeUser = []
+                    activeUser = success
                     inputfile.close()
-                    mainGUI(name)#fire up the main GUI
+                    mainGUI(name, activeUser)#fire up the main GUI
                 else:
                     print ("Wrong password") #Password didnt match user given
             

@@ -6,7 +6,7 @@ except ImportError:
     from tkinter import *
 
 class mainGUI:
-    def __init__(self, name):
+    def __init__(self, name, activeUser):
         self.name = name
         window = Tk() #create window
         window.title("Python Classroom ATM") #set window title
@@ -21,6 +21,17 @@ class mainGUI:
         btCheckBalance = Button(window, text = "Check Balance", command = self.checkBalance).place(x = 200, y = 20)
         btTransfer = Button(window, text = "Transfer Funds", command = self.transfer).place(x = 200, y = 60)
         btLogout = Button(window, text = "Log Out", command = self.logout).place(x = 200, y = 100)
+        
+        #reads in the user data of the logged in user
+        
+        self.activeUser = []
+        self.activeUser = activeUser
+        
+        userFile = open("users.txt", "r")
+        if self.name == 'user':
+        	userFile.seek(0)
+        	self.activeUser.append(str(userFile.readline().strip()).split(','))
+        
 
         window.mainloop()
 
@@ -56,11 +67,8 @@ class mainGUI:
         return
 
     def checkBalance(self):
-        userFile = open("users.txt", "r")
-        user = str(userFile.readline())
-        password = str(userFile.readline())
-        checking = float(userFile.readline())
-        savings = float(userFile.readline())
+        checking = self.activeUser[2]
+        savings = self.activeUser[3]
         return checking, savings
 
     def transfer(self):

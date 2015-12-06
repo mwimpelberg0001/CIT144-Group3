@@ -31,7 +31,7 @@ class mainGUI:
         
 #################################################
 # userFile read and write methods, any method needing to read/write 
-# the user file should be made to call thesefunctions using "mainGUI.readUserFile()"
+# the user file should be made to call these functions using "mainGUI.readUserFile()"
 # or "mainGUI.writeUserFile()" (for all programs, deposit, withdraw, transfer etc..)
 #
     def readUserFile(self):
@@ -44,7 +44,6 @@ class mainGUI:
         	userFile.seek(64)
         elif self.name == 'dkrebs':
         	userFile.seek(96)
-        # add each newly read variable to self.activeUser, in place of the old ones
         #print str(self.activeUser)
         self.activeUser = str(userFile.readline()).split(',')
         #print str(self.activeUser)

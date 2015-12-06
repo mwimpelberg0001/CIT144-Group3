@@ -23,25 +23,8 @@ class mainGUI:
         btLogout = Button(window, text = "Log Out", command = self.logout).place(x = 200, y = 100)
         
         #reads in the user data of the logged in user
-        
         self.activeUser = []
         self.activeUser = activeUser
-        
-        userFile = open("users.txt", "r")
-        if self.name == 'user' :
-        	userFile.seek(0)
-        	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        elif self.name == 'mwimpelberg' :
-        	userFile.seek(32)
-        	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        elif self.name == 'jwood' :
-        	userFile.seek(64)
-        	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        elif self.name == 'dkrebs' :
-        	userFile.seek(96)
-        	self.activeUser.append(str(userFile.readline().strip()).split(','))
-        self.activeUser.pop()
-        userFile.close()
 
         window.mainloop()
         
@@ -55,16 +38,16 @@ class mainGUI:
     	userFile = open("users.txt", "r")
         if self.name == 'user':
         	userFile.seek(0)
-        	self.activeUser.insert(0, str(userFile.readline().split(',')))
         elif self.name == 'mwimpelberg':
         	userFile.seek(32)
-        	self.activeUser.insert(0, str(userFile.readline().split(',')))
         elif self.name == 'jwood':
         	userFile.seek(64)
-        	self.activeUser.insert(0, str(userFile.readline().split(',')))
         elif self.name == 'dkrebs':
         	userFile.seek(96)
-        	self.activeUser.insert(0, str(userFile.readline().split(',')))
+        # add each newly read variable to self.activeUser, in place of the old ones
+        #print str(self.activeUser)
+        self.activeUser = str(userFile.readline()).split(',')
+        #print str(self.activeUser)
         userFile.close()
     	
     	return
@@ -73,18 +56,15 @@ class mainGUI:
     	userFile = open("users.txt", "r+")
         if self.name == 'user':
         	userFile.seek(0)
-        	userFile.write(self.activeUser[0] + ',' + self.activeUser[1] + ',' + self.activeUser[2] + ',' + self.activeUser[3] )
         elif self.name == 'mwimpelberg':
         	userFile.seek(32)
-        	userFile.write(self.activeUser[0] + ',' + self.activeUser[1] + ',' + self.activeUser[2] + ',' + self.activeUser[3] )
         elif self.name == 'jwood':
         	userFile.seek(64)
-        	userFile.write(self.activeUser[0] + ',' + self.activeUser[1] + ',' + self.activeUser[2] + ',' + self.activeUser[3] )
         elif self.name == 'dkrebs':
         	userFile.seek(96)
-        	userFile.write(self.activeUser[0] + ',' + self.activeUser[1] + ',' + self.activeUser[2] + ',' + self.activeUser[3] )
+        for entry in self.activeUser:
+        	userFile.write(str(entry) + ',')
         userFile.close()
-    	
     	return
 #
 # end of read/write methods, see top of section for details.
@@ -100,9 +80,9 @@ class mainGUI:
 
     def checkBalance(self):
         self.readUserFile()
-        savings = self.activeUser[3]
-        checking = self.activeUser[-1] # -1 gives last element
-        print str( "checking: $" + savings + "\tsavings: $" + checking )
+        checking = self.activeUser[2]
+        savings = self.activeUser[3] 
+        print str( "checking: $" + checking + "\tsavings: $" + savings )
         return checking, savings
         
     def quickWithdraw(self):

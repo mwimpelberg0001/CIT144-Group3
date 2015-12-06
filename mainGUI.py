@@ -62,8 +62,8 @@ class mainGUI:
         	userFile.seek(64)
         elif self.name == 'dkrebs':
         	userFile.seek(96)
-        for entry in self.activeUser:
-        	userFile.write(str(entry) + ',')
+        for x in range(0,4):
+        	userFile.write(str(self.activeUser[x]) + ',')
         userFile.close()
     	return
 #
@@ -88,7 +88,7 @@ class mainGUI:
     def quickWithdraw(self):
         #automatically withdraws 40 from balance
         self.readUserFile()
-        self.activeUser[-2] = str(float(self.activeUser[-2]) - 40)
+        self.activeUser[2] = str(float(self.activeUser[2]) - 40)
         self.writeUserFile()
         self.checkBalance()
         

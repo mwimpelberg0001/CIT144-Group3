@@ -1,4 +1,5 @@
-user,password,450.0,530.0,,
+user,password,610.0,610.0,
+
 wimpelberg,test1,1000.0,100.0,
 jwood,password,1000.0,100.0,
 dkrebs,test3,1000.0,100.0,

@@ -29,9 +29,9 @@ userFile.write('\ndkrebs,test3,1000.0,100.0')
 userFile.close()
 
 for x in range(0,10):
-	print "loading"
-	for y in range(0,10):
-		os.system('cls' if os.name == 'nt' else 'clear')
+        print "loading"
+        for y in range(0,10):
+                os.system('cls' if os.name == 'nt' else 'clear')
 users = [] # blah blah i need this
 userFile = open('users.txt', 'r')
 userFile.seek(0)
@@ -45,7 +45,7 @@ users.append((str(userFile.readline).strip().split(',')))
 userFile.close()
 
 for x in range(0, len(users)):
-	print str(users[x])
+        print str(users[x])
 print " default users.txt Generated"
 
 

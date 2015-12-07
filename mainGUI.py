@@ -5,6 +5,9 @@ except ImportError:
     # for Python3
     from tkinter import *
 
+from withdrawGUI import *
+from depositGUI import *
+
 class mainGUI:
     def __init__(self, name, activeUser):
         self.name = name
@@ -28,69 +31,73 @@ class mainGUI:
 
         window.mainloop()
         
-        
 #################################################
 # userFile read and write methods, any method needing to read/write 
 # the user file should be made to call these functions using "mainGUI.readUserFile()"
 # or "mainGUI.writeUserFile()" (for all programs, deposit, withdraw, transfer etc..)
 #
     def readUserFile(self):
-    	userFile = open("users.txt", "r")
+        userFile = open("users.txt", "r")
         if self.name == 'user':
-        	userFile.seek(0)
+            userFile.seek(0)
         elif self.name == 'mwimpelberg':
-        	userFile.seek(32)
+            userFile.seek(32)
         elif self.name == 'jwood':
-        	userFile.seek(64)
+            userFile.seek(64)
         elif self.name == 'dkrebs':
-        	userFile.seek(96)
+            userFile.seek(96)
         #print str(self.activeUser)
         self.activeUser = str(userFile.readline()).split(',')
         #print str(self.activeUser)
         userFile.close()
-    	
-    	return
+        return
     
     def writeUserFile(self):
-    	userFile = open("users.txt", "r+")
+        userFile = open("users.txt", "r+")
         if self.name == 'user':
-        	userFile.seek(0)
+            userFile.seek(0)
         elif self.name == 'mwimpelberg':
-        	userFile.seek(32)
+            userFile.seek(32)
         elif self.name == 'jwood':
-        	userFile.seek(64)
+            userFile.seek(64)
         elif self.name == 'dkrebs':
-        	userFile.seek(96)
+            userFile.seek(96)
         for x in range(0,4):
-        	userFile.write(str(self.activeUser[x]) + ',')
+            userFile.write(str(self.activeUser[x]) + ',')
         userFile.close()
-    	return
-#
-# end of read/write methods, see top of section for details.
-#######################################################################
-
-    def deposit(self):
-        import depositGUI
-        return
-
-    def withdraw(self):
-        import withdrawGUI
         return
 
     def checkBalance(self):
         self.readUserFile()
         checking = self.activeUser[2]
         savings = self.activeUser[3] 
-        print str( "checking: $" + checking + "\tsavings: $" + savings )
+        print (str( "checking: $" + checking + "\tsavings: $" + savings ))
         return checking, savings
+
+#
+# end of read/write methods, see top of section for details.
+#######################################################################
         
+    def deposit(self):
+        name = self.name
+        activeUser = []
+        activeUser = self.activeUser
+        depositGUI(name, activeUser)
+        return
+
+    def withdraw(self):
+        name = self.name
+        activeUser = []
+        activeUser = self.activeUser
+        withdrawGUI(name, activeUser)
+        return
+      
     def quickWithdraw(self):
         #automatically withdraws 40 from balance
         self.readUserFile()
         self.activeUser[2] = str(float(self.activeUser[2]) - 40)
         self.writeUserFile()
         self.checkBalance()
-        
         return
 
     def transfer(self):
@@ -101,7 +108,3 @@ class mainGUI:
         #closes program
         window.destroy()
         return
-
-
-    
-

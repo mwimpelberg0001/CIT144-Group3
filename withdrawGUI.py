@@ -5,8 +5,13 @@ except ImportError:
     # for Python3
     from tkinter import *
 
+from transactionGUI import *
+
 class withdrawGUI():
-    def __init__(self):
+    def __init__(self, name, activeUser):
+        self.name = name
+        self.activeUser = []
+        self.activeUser = activeUser
         window = Tk() #create window
         window.title("Python Classroom ATM") #set window title
         #sets background size
@@ -27,45 +32,66 @@ class withdrawGUI():
         self.withdrawAmount = StringVar() #define variable for entry
         Entry(window, textvariable = self.withdrawAmount, justify = RIGHT).place(x = 110, y = 140) #entry window
 
+        window.mainloop()
 
 
     def ten(self):
-        #removes 10 from balance
+        #withdraws 10
+        name = self.name
+        activeUser = self.activeUser
+        amount = -10
+        transactionGUI(name, activeUser, amount)
         return
 
     def twenty(self):
-        #removes 20 from balance
+        #withdraws 20
+        name = self.name
+        activeUser = self.activeUser
+        amount = -20
+        transactionGUI(name, activeUser, amount)
         return
 
     def fourty(self):
-        #removes 40 from balance
+        #withdraws 40 
+        name = self.name
+        activeUser = self.activeUser
+        amount = -40
+        transactionGUI(name, activeUser, amount)
         return
 
     def fifty(self):
-        #removes 50 from balance
+        #withdraws 50
+        name = self.name
+        activeUser = self.activeUser
+        amount = -50
+        transactionGUI(name, activeUser, amount)
         return
 
     def seventy(self):
-        #removes 75 from balance
+        #withdraws 75 
+        name = self.name
+        activeUser = self.activeUser
+        amount = -75
+        transactionGUI(name, activeUser, amount)
         return
 
     def hundred(self):
-        #removes 100 from balance
+        #withdraws 100 
+        name = self.name
+        activeUser = self.activeUser
+        amount = -100
+        transactionGUI(name, activeUser, amount)
         return
 
     def enterPrice(self):
-        #removes variable self.withdrawAmount from balance
-        #will need to check and convert StringVar to number
-        #may need to check for invalid input could create a seperate
-        #function for this as we will need to use it for deposit.
+        #withdraws variable self.depositAmount
+        name = self.name
+        activeUser = self.activeUser
+        amount = -(float(self.withdrawAmount.get()))
+        transactionGUI(name, activeUser, amount)
         return
+
 
     def mainMenu(self):
         #returns to mainGUI
         return
-
-#only purpose is to call mainGUI for viewing
-withdrawGUI()
-
-    
-

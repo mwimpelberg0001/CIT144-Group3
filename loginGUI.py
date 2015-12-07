@@ -48,13 +48,9 @@ class loginGUI:
                     activeUser = []
                     activeUser = success
                     inputfile.close()
-                    mainGUI(name, activeUser)#fire up the main GUI
+                    mainGUI(name, activeUser) #fire up the main GUI
                     #window.destroy()
                 else:
                     print ("Wrong password") #Password didnt match user given
-                    
-                    
-                
-            
 
 loginGUI()

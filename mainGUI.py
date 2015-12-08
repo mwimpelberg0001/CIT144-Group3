@@ -324,67 +324,19 @@ class transactionGUI():
         btSavings = Button(self.window, text = "Savings", command = self.savings).place(x = 20, y = 60)
         btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).place(x = 100, y = 125)
 
-#################################################
-# userFile read and write methods, any method needing to read/write 
-# the user file should be made to call these functions using "mainGUI.readUserFile()"
-# or "mainGUI.writeUserFile()" (for all programs, deposit, withdraw, transfer etc..)
-#
-    def readUserFile(self):
-        userFile = open("users.txt", "r")
-        if self.name == 'user':
-            userFile.seek(0)
-        elif self.name == 'mwimpelberg':
-            userFile.seek(32)
-        elif self.name == 'jwood':
-            userFile.seek(64)
-        elif self.name == 'dkrebs':
-            userFile.seek(96)
-        #print str(self.activeUser)
-        self.activeUser = str(userFile.readline()).split(',')
-        #print str(self.activeUser)
-        userFile.close()
-        return
-    
-    def writeUserFile(self):
-        userFile = open("users.txt", "r+")
-        if self.name == 'user':
-            userFile.seek(0)
-        elif self.name == 'mwimpelberg':
-            userFile.seek(32)
-        elif self.name == 'jwood':
-            userFile.seek(64)
-        elif self.name == 'dkrebs':
-            userFile.seek(96)
-        for x in range(0,4):
-            userFile.write(str(self.activeUser[x]) + ',')
-        userFile.close()
-        return
-
-    def checkBalance(self):
-        self.readUserFile()
-        checking = self.activeUser[2]
-        savings = self.activeUser[3] 
-        print (str( "checking: $" + checking + "\tsavings: $" + savings ))
-        return checking, savings
-
-#
-# end of read/write methods, see top of section for details.
-#######################################################################
 
     def checking(self):
         #adjusts X on balance
-        self.readUserFile()
+        mainGUI.readUserFile(self)
         self.activeUser[2] = str(float(self.activeUser[2]) + self.amount)
-        self.writeUserFile()
-        self.checkBalance()
+        mainGUI.writeUserFile(self)
         return
 
     def savings(self):
         #adjusts X on balance
-        self.readUserFile()
+        mainGUI.readUserFile(self)
         self.activeUser[3] = str(float(self.activeUser[3]) + self.amount)
-        self.writeUserFile()
-        self.checkBalance()
+        mainGUI.writeUserFile(self)
         return
 
     def mainMenu(self):
@@ -401,83 +353,44 @@ class transferGUI():
         self.name = name
         self.activeUser = []
         self.activeUser = activeUser
-        window = Tk() #create window
-        window.title("Python Classroom ATM") #set window title
+        self.window = Tk() #create window
+        self.window.title("Python Classroom ATM") #set window title
         #sets background size
-        canvas = Canvas(window, width = 300, height = 200) 
+        canvas = Canvas(self.window, width = 300, height = 200) 
         canvas.pack()        
 
         #places buttons into window, links to definitions below
         self.amount = StringVar()
-        Entry(window, textvariable = self.amount, justify = RIGHT).place(x = 20, y = 20)
-        btfromChecking = Button (window, text = "Checking to Savings", command = self.fromChecking).place(x = 20, y = 60)
-        btfromChecking = Button (window, text = "Savings to Checking", command = self.fromSavings).place(x = 20, y = 100)
+        Entry(self.window, textvariable = self.amount, justify = RIGHT).place(x = 20, y = 20)
+        btfromChecking = Button (self.window, text = "Checking to Savings", command = self.fromChecking).place(x = 20, y = 60)
+        btfromChecking = Button (self.window, text = "Savings to Checking", command = self.fromSavings).place(x = 20, y = 100)
+        btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).place(x = 100, y = 140)
 
-        window.mainloop()
-
-#################################################
-# userFile read and write methods, any method needing to read/write 
-# the user file should be made to call these functions using "mainGUI.readUserFile()"
-# or "mainGUI.writeUserFile()" (for all programs, deposit, withdraw, transfer etc..)
-#
-    def readUserFile(self):
-        userFile = open("users.txt", "r")
-        if self.name == 'user':
-            userFile.seek(0)
-        elif self.name == 'mwimpelberg':
-            userFile.seek(32)
-        elif self.name == 'jwood':
-            userFile.seek(64)
-        elif self.name == 'dkrebs':
-            userFile.seek(96)
-        #print str(self.activeUser)
-        self.activeUser = str(userFile.readline()).split(',')
-        #print str(self.activeUser)
-        userFile.close()
-        return
-    
-    def writeUserFile(self):
-        userFile = open("users.txt", "r+")
-        if self.name == 'user':
-            userFile.seek(0)
-        elif self.name == 'mwimpelberg':
-            userFile.seek(32)
-        elif self.name == 'jwood':
-            userFile.seek(64)
-        elif self.name == 'dkrebs':
-            userFile.seek(96)
-        for x in range(0,4):
-            userFile.write(str(self.activeUser[x]) + ',')
-        userFile.close()
-        return
-
-    def checkBalance(self):
-        self.readUserFile()
-        checking = self.activeUser[2]
-        savings = self.activeUser[3] 
-        print (str( "checking: $" + checking + "\tsavings: $" + savings ))
-        return checking, savings
-
-#
-# end of read/write methods, see top of section for details.
-#######################################################################
+        self.window.mainloop()
 
     def fromChecking(self):
         #transfers amount from checking to savings
-        self.readUserFile()
+        mainGUI.readUserFile(self)
         self.activeUser[2] = str(float(self.activeUser[2]) -(float(self.amount.get())))
         self.activeUser[3] = str(float(self.activeUser[3]) +(float(self.amount.get())))
-        self.writeUserFile()
-        self.checkBalance()
+        mainGUI.writeUserFile(self)
         return
     
     def fromSavings(self):
         #transfers amount from savings to checking
-        self.readUserFile()
+        mainGUI.readUserFile(self)
         self.activeUser[3] = str(float(self.activeUser[3]) -(float(self.amount.get())))
         self.activeUser[2] = str(float(self.activeUser[2]) +(float(self.amount.get())))
-        self.writeUserFile()
-        self.checkBalance()
+        mainGUI.writeUserFile(self)
+        return
+
+    def mainMenu(self):
+        #returns to mainGUI
+        name = self.name
+        activeUser = []
+        activeUser = self.activeUser
+        self.window.destroy()
+        mainGUI(name, activeUser)
         return
 
 
@@ -496,9 +409,9 @@ class balanceGUI():
         btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).grid(row = 4, column = 2, sticky = W)
 
         #puts the amounts to the right of labels in window
-        Label(self.window, textvariable = self.name).grid(row = 1, column = 2, sticky = E)
-        Label(self.window, textvariable = self.balanceChecking).grid(row = 2, column = 2, sticky = E)
-        Label(self.window, textvariable = self.balanceSavings).grid(row = 3, column = 2, sticky = E)
+        Label(self.window, text = self.name).grid(row = 1, column = 2, sticky = E)
+        Label(self.window, text = self.balanceChecking()).grid(row = 2, column = 2, sticky = E)
+        Label(self.window, text = self.balanceSavings()).grid(row = 3, column = 2, sticky = E)
 
         self.window.mainloop()
 
@@ -511,6 +424,23 @@ class balanceGUI():
         self.window.destroy()
         mainGUI(name, activeUser) 
         return
+
+    def balanceChecking(self):
+        name = self.name
+        activeUser = []
+        activeUser = self.activeUser
+        mainGUI.readUserFile(self)
+        balance = str(self.activeUser[2])
+        return (balance)
+
+    def balanceSavings(self):
+        name = self.name
+        activeUser = []
+        activeUser = self.activeUser
+        mainGUI.readUserFile(self)
+        balance = str(self.activeUser[3])
+        return (balance)
+
     
 
     

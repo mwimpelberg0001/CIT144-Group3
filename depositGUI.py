@@ -6,7 +6,6 @@ except ImportError:
     from tkinter import *
 
 from transactionGUI import *
-from mainGUI import *
 
 class depositGUI():
     def __init__(self, name, activeUser):

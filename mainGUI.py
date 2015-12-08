@@ -64,11 +64,12 @@ class mainGUI:
         return
 
     def checkBalance(self):
-        self.readUserFile()
-        checking = self.activeUser[2]
-        savings = self.activeUser[3] 
-        print (str( "checking: $" + checking + "\tsavings: $" + savings ))
-        return checking, savings
+        name = self.name
+        activeUser = []
+        activeUser = self.activeUser
+        self.window.destroy()
+        balanceGUI(name, activeUser)
+        return
 
 #
 # end of read/write methods, see top of section for details.
@@ -478,4 +479,40 @@ class transferGUI():
         self.writeUserFile()
         self.checkBalance()
         return
+
+
+class balanceGUI():
+    def __init__(self, name, activeUser):
+        self.name = name
+        self.activeUser = []
+        self.activeUser = activeUser
+        self.window = Tk() #create window
+        self.window.title("Python Classroom ATM") #set window title
+
+        #places labels into window
+        Label(self.window, text = "Account Name:").grid(row = 1, column = 1, sticky = W)
+        Label(self.window, text = "Checking Balance:").grid(row = 2, column = 1, sticky = W)
+        Label(self.window, text = "Savings Balance:").grid(row = 3, column = 1, sticky = W)
+        btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).grid(row = 4, column = 2, sticky = W)
+
+        #puts the amounts to the right of labels in window
+        Label(self.window, textvariable = self.name).grid(row = 1, column = 2, sticky = E)
+        Label(self.window, textvariable = self.balanceChecking).grid(row = 2, column = 2, sticky = E)
+        Label(self.window, textvariable = self.balanceSavings).grid(row = 3, column = 2, sticky = E)
+
+        self.window.mainloop()
+
+
+    def mainMenu(self):
+        #returns to mainGUI
+        name = self.name
+        activeUser = []
+        activeUser = self.activeUser
+        self.window.destroy()
+        mainGUI(name, activeUser) 
+        return
+    
+
+    
+
 

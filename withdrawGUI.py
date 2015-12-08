@@ -101,4 +101,9 @@ class withdrawGUI():
 
     def mainMenu(self):
         #returns to mainGUI
+        name = self.name
+        activeUser = []
+        activeUser = self.activeUser
+        self.window.destroy()
+        mainGUI(name, activeUser)
         return

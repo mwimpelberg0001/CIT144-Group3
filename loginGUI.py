@@ -9,10 +9,10 @@ from mainGUI import *
 
 class loginGUI:
     def __init__(self):
-        window = Tk() #create window
-        window.title("Python Classroom ATM") #set window title
+        self.window = Tk() #create window
+        self.window.title("Python Classroom ATM") #set window title
 
-        frame1 = Frame(window)
+        frame1 = Frame(self.window)
         frame1.pack()
         label1 = Label(frame1, text = "User ID: ") #Set label for first entry field
         self.userID = StringVar() #define variable to store userID
@@ -28,7 +28,7 @@ class loginGUI:
         passwordID.grid(row = 2, column = 2)
         btSubmit.grid(row = 3, column = 3)
         
-        window.mainloop() #needed here now, since we will import mainGUI functions after a succesful login
+        self.window.mainloop() #needed here now, since we will import mainGUI functions after a succesful login
 
 
     #function returns information given
@@ -48,8 +48,8 @@ class loginGUI:
                     activeUser = []
                     activeUser = success
                     inputfile.close()
+                    self.window.destroy()
                     mainGUI(name, activeUser) #fire up the main GUI
-                    #window.destroy()
                 else:
                     print ("Wrong password") #Password didnt match user given
 

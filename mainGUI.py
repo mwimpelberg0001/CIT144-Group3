@@ -464,8 +464,8 @@ class transferGUI():
     def fromChecking(self):
         #transfers amount from checking to savings
         self.readUserFile()
-        self.activeUser[2] = str(float(self.activeUser[2]) - self.amount)
-        self.activeUser[3] = str(float(self.activeUser[3]) + self.amount)
+        self.activeUser[2] = str(float(self.activeUser[2]) -(float(self.amount.get())))
+        self.activeUser[3] = str(float(self.activeUser[3]) +(float(self.amount.get())))
         self.writeUserFile()
         self.checkBalance()
         return
@@ -473,8 +473,8 @@ class transferGUI():
     def fromSavings(self):
         #transfers amount from savings to checking
         self.readUserFile()
-        self.activeUser[3] = str(float(self.activeUser[3]) - self.amount)
-        self.activeUser[2] = str(float(self.activeUser[2]) + self.amount)
+        self.activeUser[3] = str(float(self.activeUser[3]) -(float(self.amount.get())))
+        self.activeUser[2] = str(float(self.activeUser[2]) +(float(self.amount.get())))
         self.writeUserFile()
         self.checkBalance()
         return

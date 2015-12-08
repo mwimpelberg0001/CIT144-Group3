@@ -5,6 +5,11 @@ except ImportError:
     # for Python3
     from tkinter import *
 
+
+#mainGUI runs the "central nervous system" of the program.  Most user-side functions
+#are called and offer exits back to the mainGUI.  It also houses the read/write commands
+#that the other GUIs use to pull and write data to the text users file.
+    
 class mainGUI:
     def __init__(self, name, activeUser):
         self.name = name
@@ -33,7 +38,8 @@ class mainGUI:
 # or "mainGUI.writeUserFile()" (for all programs, deposit, withdraw, transfer etc..)
 #
     def readUserFile(self):
-        userFile = open("users.txt", "r")
+        userFile = open("users.txt", "r") #reads in user file
+        #following statements search for current user and open that line
         if self.name == 'user':
             userFile.seek(0)
         elif self.name == 'mwimpelberg':
@@ -49,7 +55,8 @@ class mainGUI:
         return
     
     def writeUserFile(self):
-        userFile = open("users.txt", "r+")
+        userFile = open("users.txt", "r+") #opens file for writing
+        #following statements search for current user to update information
         if self.name == 'user':
             userFile.seek(0)
         elif self.name == 'mwimpelberg':
@@ -63,19 +70,21 @@ class mainGUI:
         userFile.close()
         return
 
+#
+# end of read/write methods, see top of section for details.
+#######################################################################
+
     def checkBalance(self):
+        #pulls information and calls the balanceGUI to display account information
         name = self.name
         activeUser = []
         activeUser = self.activeUser
         self.window.destroy()
         balanceGUI(name, activeUser)
         return
-
-#
-# end of read/write methods, see top of section for details.
-#######################################################################
         
     def deposit(self):
+        #pulls information and calls the depositGUI to process a deposit into account
         name = self.name
         activeUser = []
         activeUser = self.activeUser
@@ -84,6 +93,7 @@ class mainGUI:
         return
 
     def withdraw(self):
+        #pulls information and calls the withdrawGUI to process withdraw from account
         name = self.name
         activeUser = []
         activeUser = self.activeUser
@@ -93,6 +103,7 @@ class mainGUI:
       
 
     def transfer(self):
+        #pulls information and calls the transferGUI to handle moving money between accounts
         name = self.name
         activeUser = []
         activeUser = self.activeUser
@@ -101,10 +112,13 @@ class mainGUI:
         return
 
     def logout(self):
-        #closes program
+        #closes program entirely
         self.window.destroy()
         return
 
+#The depositGUI houses the options for depositing money into the accounts.  During its operation
+#it will reference the transactionGUI to send the deposit information over for processing into the
+#checking or savings accounts as the user desires.
 
 class depositGUI():
     def __init__(self, name, activeUser):
@@ -134,7 +148,7 @@ class depositGUI():
         self.window.mainloop()
 
     def ten(self):
-        #deposits 10
+        #pulls information and relays a deposit of 10 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = 10
@@ -143,7 +157,7 @@ class depositGUI():
         return
 
     def twenty(self):
-        #deposits 20
+        #pulls information and relays a deposit of 20 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = 20
@@ -152,7 +166,7 @@ class depositGUI():
         return
 
     def fourty(self):
-        #deposits 40 
+        #pulls information and relays a deposit of 40 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = 40
@@ -161,7 +175,7 @@ class depositGUI():
         return
 
     def fifty(self):
-        #deposits 50
+        #pulls information and relays a deposit of 50 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = 50
@@ -170,7 +184,7 @@ class depositGUI():
         return
 
     def seventy(self):
-        #deposits 75 
+        #pulls information and relays a deposit of 60 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = 75
@@ -179,7 +193,7 @@ class depositGUI():
         return
 
     def hundred(self):
-        #deposits 100 
+        #pulls information and relays a deposit of 100 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = 100
@@ -188,23 +202,28 @@ class depositGUI():
         return
 
     def enterPrice(self):
-        #deposits variable self.depositAmount
+        #pulls information and relays a deposit of the user entered variable to the transactionGUI
         name = self.name
         activeUser = self.activeUser
-        amount = float(self.depositAmount.get())
+        amount = float(self.depositAmount.get())#converts user variable into a float for processing
         self.window.destroy()
         transactionGUI(name, activeUser, amount)
         return
 
 
     def mainMenu(self):
+        #Returns to and sends user information back to the main menu. 
         name = self.name
         activeUser = []
         activeUser = self.activeUser
         self.window.destroy()
         mainGUI(name, activeUser) 
-        #returns to mainGUI
         return
+
+    
+#The withdrawGUI houses the options for withdrawing money from the accounts.  During its operation
+#it will reference the transactionGUI to send the withdraw information over for processing into the
+#checking or savings accounts as the user desires.
 
 class withdrawGUI():
     def __init__(self, name, activeUser):
@@ -235,7 +254,7 @@ class withdrawGUI():
 
 
     def ten(self):
-        #withdraws 10
+        #pulls information and relays a withdraw of 10 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = -10
@@ -244,7 +263,7 @@ class withdrawGUI():
         return
 
     def twenty(self):
-        #withdraws 20
+        #pulls information and relays a withdraw of 20 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = -20
@@ -253,7 +272,7 @@ class withdrawGUI():
         return
 
     def fourty(self):
-        #withdraws 40 
+        #pulls information and relays a withdraw of 30 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = -40
@@ -262,7 +281,7 @@ class withdrawGUI():
         return
 
     def fifty(self):
-        #withdraws 50
+        #pulls information and relays a withdraw of 40 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = -50
@@ -271,7 +290,7 @@ class withdrawGUI():
         return
 
     def seventy(self):
-        #withdraws 75 
+        #pulls information and relays a withdraw of 75 to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = -75
@@ -280,7 +299,7 @@ class withdrawGUI():
         return
 
     def hundred(self):
-        #withdraws 100 
+        #pulls information and relays a withdraw of 100 to the transactionGUI 
         name = self.name
         activeUser = self.activeUser
         amount = -100
@@ -289,7 +308,7 @@ class withdrawGUI():
         return
 
     def enterPrice(self):
-        #withdraws variable self.depositAmount
+        #pulls information and relays a withdraw of the user entered variable to the transactionGUI
         name = self.name
         activeUser = self.activeUser
         amount = -(float(self.withdrawAmount.get()))
@@ -297,15 +316,19 @@ class withdrawGUI():
         transactionGUI(name, activeUser, amount)
         return
 
-
     def mainMenu(self):
-        #returns to mainGUI
+        #Returns to and sends user information back to the main menu.
         name = self.name
         activeUser = []
         activeUser = self.activeUser
         self.window.destroy()
         mainGUI(name, activeUser)
         return
+
+#The transactionGUI is the work-horse of the program. This GUI receives the information
+#from the deposit and withdraw GUIs and processes it accordingly.  Once the information
+#is received, the GUI prompts the user whether they want the transaction to occur in the
+#checking or savings accounts.
 
 class transactionGUI():
     def __init__(self, name, activeUser, amount):
@@ -326,21 +349,21 @@ class transactionGUI():
 
 
     def checking(self):
-        #adjusts X on balance
+        #adjusts the balance of the checking account by the sent variable
         mainGUI.readUserFile(self)
         self.activeUser[2] = str(float(self.activeUser[2]) + self.amount)
         mainGUI.writeUserFile(self)
         return
 
     def savings(self):
-        #adjusts X on balance
+        #adjusts the balance of the savings account by the sent variable
         mainGUI.readUserFile(self)
         self.activeUser[3] = str(float(self.activeUser[3]) + self.amount)
         mainGUI.writeUserFile(self)
         return
 
     def mainMenu(self):
-        #returns to mainGUI
+        #Returns to and sends user information back to the main menu.
         name = self.name
         activeUser = []
         activeUser = self.activeUser
@@ -348,6 +371,10 @@ class transactionGUI():
         mainGUI(name, activeUser)
         return
 
+#The transferGUI is an option to allow users to move their money inbetween accounts. Users
+#will enter the amount they wish to move, and then chose whether it moves from checking to
+#savings, or savings to checking.  
+    
 class transferGUI():
     def __init__(self, name, activeUser):
         self.name = name
@@ -370,22 +397,22 @@ class transferGUI():
 
     def fromChecking(self):
         #transfers amount from checking to savings
-        mainGUI.readUserFile(self)
-        self.activeUser[2] = str(float(self.activeUser[2]) -(float(self.amount.get())))
-        self.activeUser[3] = str(float(self.activeUser[3]) +(float(self.amount.get())))
-        mainGUI.writeUserFile(self)
+        mainGUI.readUserFile(self) #reads file from mainGUI
+        self.activeUser[2] = str(float(self.activeUser[2]) -(float(self.amount.get()))) #sets new amount of checking less entered value
+        self.activeUser[3] = str(float(self.activeUser[3]) +(float(self.amount.get()))) #sets new amount of savings less entered value
+        mainGUI.writeUserFile(self) #writes the new values to file
         return
     
     def fromSavings(self):
         #transfers amount from savings to checking
-        mainGUI.readUserFile(self)
-        self.activeUser[3] = str(float(self.activeUser[3]) -(float(self.amount.get())))
-        self.activeUser[2] = str(float(self.activeUser[2]) +(float(self.amount.get())))
-        mainGUI.writeUserFile(self)
+        mainGUI.readUserFile(self) #reads file from mainGUI
+        self.activeUser[3] = str(float(self.activeUser[3]) -(float(self.amount.get()))) #sets new amount of checking less entered value
+        self.activeUser[2] = str(float(self.activeUser[2]) +(float(self.amount.get()))) #sets new amount of savings less entered value
+        mainGUI.writeUserFile(self) #writes the new values to file
         return
 
     def mainMenu(self):
-        #returns to mainGUI
+        #Returns to and sends user information back to the main menu.
         name = self.name
         activeUser = []
         activeUser = self.activeUser
@@ -393,6 +420,8 @@ class transferGUI():
         mainGUI(name, activeUser)
         return
 
+#The balanceGUI is the location the user can go to view their account information.  This
+#GUI will return the user name, and their respective checking and savings balances
 
 class balanceGUI():
     def __init__(self, name, activeUser):
@@ -409,15 +438,15 @@ class balanceGUI():
         btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).grid(row = 4, column = 2, sticky = W)
 
         #puts the amounts to the right of labels in window
-        Label(self.window, text = self.name).grid(row = 1, column = 2, sticky = E)
-        Label(self.window, text = self.balanceChecking()).grid(row = 2, column = 2, sticky = E)
-        Label(self.window, text = self.balanceSavings()).grid(row = 3, column = 2, sticky = E)
+        Label(self.window, text = self.name).grid(row = 1, column = 2, sticky = E) #information pulled from data sent from mainGUI when called
+        Label(self.window, text = self.balanceChecking()).grid(row = 2, column = 2, sticky = E) #calls information from balanceChecking
+        Label(self.window, text = self.balanceSavings()).grid(row = 3, column = 2, sticky = E) #calls information from balanceSavings
 
         self.window.mainloop()
 
 
     def mainMenu(self):
-        #returns to mainGUI
+        #Returns to and sends user information back to the main menu.
         name = self.name
         activeUser = []
         activeUser = self.activeUser
@@ -426,20 +455,26 @@ class balanceGUI():
         return
 
     def balanceChecking(self):
+        #pulls information about the current checking account
         name = self.name
         activeUser = []
         activeUser = self.activeUser
+        #calls the mainGUI function to read the user file
         mainGUI.readUserFile(self)
+        #sets balance equal to the checking list number
         balance = str(self.activeUser[2])
-        return (balance)
+        return (balance) #returns balance for display
 
     def balanceSavings(self):
+        #pulls information about the current savings account
         name = self.name
         activeUser = []
         activeUser = self.activeUser
+        #calls the mainGUI function to read user file
         mainGUI.readUserFile(self)
+        #sets balance equal to the savings list number
         balance = str(self.activeUser[3])
-        return (balance)
+        return (balance) #returns the balance for display
 
     
 

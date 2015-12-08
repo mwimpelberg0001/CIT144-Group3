@@ -37,31 +37,27 @@ class mainGUI:
 # or "mainGUI.writeUserFile()" (for all programs, deposit, withdraw, transfer etc..)
 #
     def readUserFile(self):
-        userFile = open("users.txt", "r")
         if self.name == 'user':
-            userFile.seek(0)
+            userFile = open('users/user.txt', 'r')
         elif self.name == 'mwimpelberg':
-            userFile.seek(32)
+            userFile = open('users/mwimpelberg.txt', 'r')
         elif self.name == 'jwood':
-            userFile.seek(64)
+            userFile = open('users/jwood.txt', 'r')
         elif self.name == 'dkrebs':
-            userFile.seek(96)
-        #print str(self.activeUser)
+            userFile = open('users/dkrebs.txt', 'r')
         self.activeUser = str(userFile.readline()).split(',')
-        #print str(self.activeUser)
         userFile.close()
         return
     
     def writeUserFile(self):
-        userFile = open("users.txt", "r+")
         if self.name == 'user':
-            userFile.seek(0)
+            userFile = open('users/user.txt', 'r+')
         elif self.name == 'mwimpelberg':
-            userFile.seek(32)
+            userFile = open('users/mwimpelberg.txt', 'r+')
         elif self.name == 'jwood':
-            userFile.seek(64)
+            userFile = open('users/jwood.txt', 'r+')
         elif self.name == 'dkrebs':
-            userFile.seek(96)
+            userFile = open('users/dkrebs.txt', 'r+')
         for x in range(0,4):
             userFile.write(str(self.activeUser[x]) + ',')
         userFile.close()
@@ -69,6 +65,8 @@ class mainGUI:
 
     def checkBalance(self):
         self.readUserFile()
+        #for item in self.activeUser:
+          #  print (str(item))
         checking = self.activeUser[2]
         savings = self.activeUser[3] 
         print (str( "checking: $" + checking + "\tsavings: $" + savings ))

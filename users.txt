@@ -1,4 +1,4 @@
-user,password,760.0,75.0,
+user,password,280.0,75.0,
 
 mwimpelberg,test1,1310.0,1010.0,
 jwood,password,1010.0,130.0,

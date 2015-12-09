@@ -1,5 +1,5 @@
 try:
-    # for Python2
+    # for Python2 # using python 2 seems to cause read/write errors with our user file
     from Tkinter import *
 except ImportError:
     # for Python3
@@ -15,13 +15,15 @@ class mainGUI:
         self.name = name
         self.window = Tk() #create window
         self.window.title("Python Classroom ATM") #set window title
+        self.window.iconbitmap('ATM.ico')
         #sets background size
         canvas = Canvas(self.window, width = 300, height = 150) 
         canvas.pack()
 
         #places buttons into window, links to definitions below
-        btDeposit = Button(self.window, text = "Deposit", command = self.deposit).place(x = 20, y = 20)
-        btWithdraw = Button(self.window, text = "Withdraw", command = self.withdraw).place(x = 20, y = 60)
+        userLsbel = Label(self.window, text = "Logged in as:\n" + self.name).place(x = 20, y = 20)
+        btDeposit = Button(self.window, text = "Deposit", command = self.deposit).place(x = 20, y = 60)
+        btWithdraw = Button(self.window, text = "Withdraw", command = self.withdraw).place(x = 20, y = 100)
         btCheckBalance = Button(self.window, text = "Check Balance", command = self.checkBalance).place(x = 200, y = 20)
         btTransfer = Button(self.window, text = "Transfer Funds", command = self.transfer).place(x = 200, y = 60)
         btLogout = Button(self.window, text = "Log Out", command = self.logout).place(x = 200, y = 100)
@@ -351,15 +353,23 @@ class transactionGUI():
     def checking(self):
         #adjusts the balance of the checking account by the sent variable
         mainGUI.readUserFile(self)
-        self.activeUser[2] = str(float(self.activeUser[2]) + self.amount)
-        mainGUI.writeUserFile(self)
+        balanceCheck = float(self.activeUser[2]) + self.amount
+        if balanceCheck >= 0:
+        	self.activeUser[2] = str(float(self.activeUser[2]) + self.amount)
+        	mainGUI.writeUserFile(self)
+        else:
+        	print('Transaction failed:\nInsufficient Funds')
         return
 
     def savings(self):
         #adjusts the balance of the savings account by the sent variable
         mainGUI.readUserFile(self)
-        self.activeUser[3] = str(float(self.activeUser[3]) + self.amount)
-        mainGUI.writeUserFile(self)
+        balanceCheck = float(self.activeUser[3]) + self.amount
+        if balanceCheck >= 0:
+        	self.activeUser[3] = str(float(self.activeUser[3]) + self.amount)
+        	mainGUI.writeUserFile(self)
+        else:
+        	print('Transaction failed:\nInsufficient Funds')
         return
 
     def mainMenu(self):
@@ -398,17 +408,25 @@ class transferGUI():
     def fromChecking(self):
         #transfers amount from checking to savings
         mainGUI.readUserFile(self) #reads file from mainGUI
-        self.activeUser[2] = str(float(self.activeUser[2]) -(float(self.amount.get()))) #sets new amount of checking less entered value
-        self.activeUser[3] = str(float(self.activeUser[3]) +(float(self.amount.get()))) #sets new amount of savings less entered value
-        mainGUI.writeUserFile(self) #writes the new values to file
+        balanceCheck = float(self.activeUser[2]) - float(self.amount.get())
+        if balanceCheck >= 0:
+        	self.activeUser[2] = str(float(self.activeUser[2]) -(float(self.amount.get()))) #sets new amount of checking less entered value
+        	self.activeUser[3] = str(float(self.activeUser[3]) +(float(self.amount.get()))) #sets new amount of savings less entered value
+        	mainGUI.writeUserFile(self) #writes the new values to file
+        else:
+        	print('Transaction failed:\nInsufficient Funds')
         return
     
     def fromSavings(self):
         #transfers amount from savings to checking
         mainGUI.readUserFile(self) #reads file from mainGUI
-        self.activeUser[3] = str(float(self.activeUser[3]) -(float(self.amount.get()))) #sets new amount of checking less entered value
-        self.activeUser[2] = str(float(self.activeUser[2]) +(float(self.amount.get()))) #sets new amount of savings less entered value
-        mainGUI.writeUserFile(self) #writes the new values to file
+        balanceCheck = float(self.activeUser[3]) - float(self.amount.get())
+        if balanceCheck >= 0:
+        	self.activeUser[3] = str(float(self.activeUser[3]) -(float(self.amount.get()))) #sets new amount of checking less entered value
+        	self.activeUser[2] = str(float(self.activeUser[2]) +(float(self.amount.get()))) #sets new amount of savings less entered value
+        	mainGUI.writeUserFile(self) #writes the new values to file
+        else:
+        	print('Transaction failed:\nInsufficient Funds')
         return
 
     def mainMenu(self):
@@ -462,8 +480,9 @@ class balanceGUI():
         #calls the mainGUI function to read the user file
         mainGUI.readUserFile(self)
         #sets balance equal to the checking list number
-        balance = str(self.activeUser[2])
-        return (balance) #returns balance for display
+        balance = float(self.activeUser[2])
+        returnBalance = "$" + "{0:.2f}".format(balance) #formats balance for currency display
+        return (returnBalance) #returns balance for display
 
     def balanceSavings(self):
         #pulls information about the current savings account
@@ -473,9 +492,9 @@ class balanceGUI():
         #calls the mainGUI function to read user file
         mainGUI.readUserFile(self)
         #sets balance equal to the savings list number
-        balance = str(self.activeUser[3])
-        return (balance) #returns the balance for display
-
+        balance = float(self.activeUser[3])
+        returnBalance = "$" +  "{0:.2f}".format(balance) #formats balance for currency display
+        return (returnBalance) #returns balance for display
     
 
     

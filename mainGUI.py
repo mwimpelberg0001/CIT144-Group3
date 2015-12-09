@@ -13,6 +13,7 @@ class mainGUI:
     def __init__(self, name, activeUser):
         self.name = name
         self.window = Tk() #create window
+        self.window.title("Python Classroom ATM") #set window title
         #sets background size
         canvas = Canvas(self.window, width = 300, height = 150) 
         canvas.pack()
@@ -352,10 +353,14 @@ class transactionGUI():
         mainGUI.readUserFile(self)
         balanceCheck = float(self.activeUser[2]) + self.amount
         if balanceCheck >= 0:
-        	self.activeUser[2] = str(float(self.activeUser[2]) + self.amount)
-        	mainGUI.writeUserFile(self)
+            self.activeUser[2] = str(float(self.activeUser[2]) + self.amount)
+            mainGUI.writeUserFile(self)
         else:
-        	print('Transaction failed:\nInsufficient Funds')
+            name = self.name
+            activeUser = []
+            activeUser = self.activeUser
+            self.window.destroy()
+            noFunds(name, activeUser)
         return
 
     def savings(self):
@@ -363,10 +368,14 @@ class transactionGUI():
         mainGUI.readUserFile(self)
         balanceCheck = float(self.activeUser[3]) + self.amount
         if balanceCheck >= 0:
-        	self.activeUser[3] = str(float(self.activeUser[3]) + self.amount)
-        	mainGUI.writeUserFile(self)
+            self.activeUser[3] = str(float(self.activeUser[3]) + self.amount)
+            mainGUI.writeUserFile(self)
         else:
-        	print('Transaction failed:\nInsufficient Funds')
+            name = self.name
+            activeUser = []
+            activeUser = self.activeUser
+            self.window.destroy()
+            noFunds(name, activeUser)
         return
 
     def mainMenu(self):
@@ -407,11 +416,15 @@ class transferGUI():
         mainGUI.readUserFile(self) #reads file from mainGUI
         balanceCheck = float(self.activeUser[2]) - float(self.amount.get())
         if balanceCheck >= 0:
-        	self.activeUser[2] = str(float(self.activeUser[2]) -(float(self.amount.get()))) #sets new amount of checking less entered value
-        	self.activeUser[3] = str(float(self.activeUser[3]) +(float(self.amount.get()))) #sets new amount of savings less entered value
-        	mainGUI.writeUserFile(self) #writes the new values to file
+            self.activeUser[2] = str(float(self.activeUser[2]) -(float(self.amount.get()))) #sets new amount of checking less entered value
+            self.activeUser[3] = str(float(self.activeUser[3]) +(float(self.amount.get()))) #sets new amount of savings less entered value
+            mainGUI.writeUserFile(self) #writes the new values to file
         else:
-        	print('Transaction failed:\nInsufficient Funds')
+            name = self.name
+            activeUser = []
+            activeUser = self.activeUser
+            self.window.destroy()
+            noFunds(name, activeUser)
         return
     
     def fromSavings(self):
@@ -419,11 +432,15 @@ class transferGUI():
         mainGUI.readUserFile(self) #reads file from mainGUI
         balanceCheck = float(self.activeUser[3]) - float(self.amount.get())
         if balanceCheck >= 0:
-        	self.activeUser[3] = str(float(self.activeUser[3]) -(float(self.amount.get()))) #sets new amount of checking less entered value
-        	self.activeUser[2] = str(float(self.activeUser[2]) +(float(self.amount.get()))) #sets new amount of savings less entered value
-        	mainGUI.writeUserFile(self) #writes the new values to file
+            self.activeUser[3] = str(float(self.activeUser[3]) -(float(self.amount.get()))) #sets new amount of checking less entered value
+            self.activeUser[2] = str(float(self.activeUser[2]) +(float(self.amount.get()))) #sets new amount of savings less entered value
+            mainGUI.writeUserFile(self) #writes the new values to file
         else:
-        	print('Transaction failed:\nInsufficient Funds')
+            name = self.name
+            activeUser = []
+            activeUser = self.activeUser
+            self.window.destroy()
+            noFunds(name, activeUser)
         return
 
     def mainMenu(self):
@@ -494,6 +511,31 @@ class balanceGUI():
         return (returnBalance) #returns balance for display
     
 
+class noFunds():
+    def __init__(self, name, activeUser):
+        self.name = name
+        self.activeUser = []
+        self.activeUser = activeUser
+        self.window = Tk() #create window
+        self.window.title("Python Classroom ATM") #set window title
+
+        #places labels into window
+        Label(self.window, text = "Transaction Failed:").grid(row = 1, column = 1, sticky = W)
+        Label(self.window, text = "Reason: Insufficient Funds").grid(row = 2, column = 1, sticky = W)
+        btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).grid(row = 3, column = 2, sticky = W)
+
+        self.window.mainloop()
+
+    def mainMenu(self):
+        #Returns to and sends user information back to the main menu.
+        name = self.name
+        activeUser = []
+        activeUser = self.activeUser
+        self.window.destroy()
+        mainGUI(name, activeUser) 
+        return
+
+            
     
 
 

@@ -399,16 +399,16 @@ class transferGUI():
         self.window = Tk() #create window
         self.window.title("Python Classroom ATM") #set window title
         #sets background size
-        canvas = Canvas(self.window, width = 300, height = 200) 
+        canvas = Canvas(self.window, width = 300, height = 150) 
         canvas.pack()        
 
         #places buttons into window, links to definitions below
         self.amount = StringVar()
-        Label(self.window, text = "Enter Amount:").place(x = 20, y = 10) #Label for Entry box
-        Entry(self.window, textvariable = self.amount, justify = RIGHT).place(x = 20, y = 30)
+        Label(self.window, text = "Enter Amount:").place(x = 20, y = 30) #Label for Entry box
+        Entry(self.window, textvariable = self.amount, justify = RIGHT).place(x = 130, y = 30)
         btfromChecking = Button (self.window, text = "Checking to Savings", command = self.fromChecking).place(x = 20, y = 60)
-        btfromChecking = Button (self.window, text = "Savings to Checking", command = self.fromSavings).place(x = 20, y = 100)
-        btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).place(x = 100, y = 140)
+        btfromChecking = Button (self.window, text = "Savings to Checking", command = self.fromSavings).place(x = 150, y = 60)
+        btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).place(x = 80, y = 100)
 
         self.window.mainloop()
 

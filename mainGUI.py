@@ -19,7 +19,7 @@ class mainGUI:
         canvas.pack()
 
         #places buttons into window, links to definitions below
-        userLabel = Label(self.window, text = "Logged in as:\n" + self.name).place(x = 20, y = 20)
+        userLabel = Label(self.window, text = "Logged in as:\n" + self.name).place(x = 20, y = 15)
         btDeposit = Button(self.window, text = "Deposit", command = self.deposit).place(x = 20, y = 60)
         btWithdraw = Button(self.window, text = "Withdraw", command = self.withdraw).place(x = 20, y = 100)
         btCheckBalance = Button(self.window, text = "Check Balance", command = self.checkBalance).place(x = 200, y = 20)
@@ -404,7 +404,8 @@ class transferGUI():
 
         #places buttons into window, links to definitions below
         self.amount = StringVar()
-        Entry(self.window, textvariable = self.amount, justify = RIGHT).place(x = 20, y = 20)
+        Label(self.window, text = "Enter Amount:").place(x = 20, y = 10) #Label for Entry box
+        Entry(self.window, textvariable = self.amount, justify = RIGHT).place(x = 20, y = 30)
         btfromChecking = Button (self.window, text = "Checking to Savings", command = self.fromChecking).place(x = 20, y = 60)
         btfromChecking = Button (self.window, text = "Savings to Checking", command = self.fromSavings).place(x = 20, y = 100)
         btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).place(x = 100, y = 140)

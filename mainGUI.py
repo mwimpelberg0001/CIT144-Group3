@@ -510,8 +510,10 @@ class balanceGUI():
         balance = float(self.activeUser[3])
         returnBalance = "$" +  "{0:.2f}".format(balance) #formats balance for currency display
         return (returnBalance) #returns balance for display
-    
 
+
+#The noFundsGUI is a pop up window when the user attempts to withdraw
+#or transfer more money out of an account than it has in it.
 class noFunds():
     def __init__(self, name, activeUser):
         self.name = name
@@ -520,7 +522,7 @@ class noFunds():
         self.window = Tk() #create window
         self.window.title("Python Classroom ATM") #set window title
 
-        #places labels into window
+        #places labels into window to alert user why transaction failed.
         Label(self.window, text = "Transaction Failed:").grid(row = 1, column = 1, sticky = W)
         Label(self.window, text = "Reason: Insufficient Funds").grid(row = 2, column = 1, sticky = W)
         btMainMenu = Button(self.window, text = "Return to Main menu", command = self.mainMenu).grid(row = 3, column = 2, sticky = W)

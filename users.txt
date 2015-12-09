@@ -1,6 +1,5 @@
 user,password,280.0,75.0,
+mwimpelberg,test1,6410.0,6070.0,
 
-mwimpelberg,test1,1310.0,1010.0,
 jwood,password,1010.0,130.0,
-
 dkrebs,test3,1100.0,200.0,

@@ -143,7 +143,7 @@ class depositGUI():
         #begin creation of entry box for variable withdraw amount
         Label(self.window, text = "Enter Amount:").place(x = 20, y = 140) #Label for Entry box
         self.depositAmount = StringVar() #define variable for entry
-        Entry(self.window, textvariable = self.depositAmount, justify = RIGHT).place(x = 110, y = 140) #entry window
+        Entry(self.window, textvariable = self.depositAmount, justify = RIGHT).place(x = 105, y = 140) #entry window
 
         self.window.mainloop()
 
@@ -248,7 +248,7 @@ class withdrawGUI():
         #begin creation of entry box for variable withdraw amount
         Label(self.window, text = "Enter Amount:").place(x = 20, y = 140) #Label for Entry box
         self.withdrawAmount = StringVar() #define variable for entry
-        Entry(self.window, textvariable = self.withdrawAmount, justify = RIGHT).place(x = 110, y = 140) #entry window
+        Entry(self.window, textvariable = self.withdrawAmount, justify = RIGHT).place(x = 105, y = 140) #entry window
 
         self.window.mainloop()
 

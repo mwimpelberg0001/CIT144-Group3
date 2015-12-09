@@ -5,7 +5,6 @@ except ImportError:
     # for Python3
     from tkinter import *
 
-
 #mainGUI runs the "central nervous system" of the program.  Most user-side functions
 #are called and offer exits back to the mainGUI.  It also houses the read/write commands
 #that the other GUIs use to pull and write data to the text users file.
@@ -14,14 +13,12 @@ class mainGUI:
     def __init__(self, name, activeUser):
         self.name = name
         self.window = Tk() #create window
-        self.window.title("Python Classroom ATM") #set window title
-        self.window.iconbitmap('ATM.ico')
         #sets background size
         canvas = Canvas(self.window, width = 300, height = 150) 
         canvas.pack()
 
         #places buttons into window, links to definitions below
-        userLsbel = Label(self.window, text = "Logged in as:\n" + self.name).place(x = 20, y = 20)
+        userLabel = Label(self.window, text = "Logged in as:\n" + self.name).place(x = 20, y = 20)
         btDeposit = Button(self.window, text = "Deposit", command = self.deposit).place(x = 20, y = 60)
         btWithdraw = Button(self.window, text = "Withdraw", command = self.withdraw).place(x = 20, y = 100)
         btCheckBalance = Button(self.window, text = "Check Balance", command = self.checkBalance).place(x = 200, y = 20)
